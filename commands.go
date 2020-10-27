@@ -34,7 +34,7 @@ func (b *Bot) removeRole(m *discordgo.MessageCreate, s *discordgo.Session) {
 	for _, r := range b.config.Role {
 		for _, alias := range r.Alias {
 			if strings.Contains(message, alias) {
-				member, err := b.session.State.Member(b.config.Discord.DefaultGuild, m.Author.ID)
+				member, err := b.session.GuildMember(b.config.Discord.DefaultGuild, m.Author.ID)
 				if err != nil {
 					log.Error(err)
 					return
@@ -64,7 +64,7 @@ func (b *Bot) addRole(m *discordgo.MessageCreate, s *discordgo.Session) {
 	for _, r := range b.config.Role {
 		for _, alias := range r.Alias {
 			if strings.Contains(message, alias) {
-				member, err := b.session.State.Member(b.config.Discord.DefaultGuild, m.Author.ID)
+				member, err := b.session.GuildMember(b.config.Discord.DefaultGuild, m.Author.ID)
 				if err != nil {
 					log.Error(err)
 					return
@@ -113,7 +113,7 @@ func (b *Bot) check(m *discordgo.MessageCreate, s *discordgo.Session) {
 			return
 		}
 
-		if (c.CharLimit <= characters && c.CharLimit > 0) || (c.NewlineLimit <= newlines && c.NewlineLimit > 0) {
+		if (c.CharLimit < characters && c.CharLimit > 0) || (c.NewlineLimit < newlines && c.NewlineLimit > 0) {
 			reply = reply + constructUnsuccesfulCheckRespose(ch.Name, c.CharLimit, c.NewlineLimit)
 		} else {
 			reply = reply + constructSuccesfulCheckRespose(ch.Name, c.CharLimit, c.NewlineLimit)
