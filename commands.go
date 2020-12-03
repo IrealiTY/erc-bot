@@ -55,7 +55,7 @@ func (b *Bot) removeRole(m *discordgo.MessageCreate, s *discordgo.Session) {
 			}
 		}
 	}
-	b.replyAndClear(fmt.Sprintf("Sorry, the role %s does not exist", strings.TrimSpace(message)), m.ChannelID, m.ID, time.Second*30)
+	b.replyAndClear(fmt.Sprintf("Sorry, the role %s does not exist. Type .help to find the available commands.", strings.TrimSpace(message)), m.ChannelID, m.ID, time.Second*30)
 }
 
 func (b *Bot) addRole(m *discordgo.MessageCreate, s *discordgo.Session) {
@@ -84,7 +84,7 @@ func (b *Bot) addRole(m *discordgo.MessageCreate, s *discordgo.Session) {
 			}
 		}
 	}
-	b.replyAndClear(fmt.Sprintf("Sorry, the role %s does not exist", message), m.ChannelID, m.ID, time.Second*30)
+	b.replyAndClear(fmt.Sprintf("Sorry, the role %s command does not exist. Type .help to find the available commands.", message), m.ChannelID, m.ID, time.Second*30)
 }
 
 func (b *Bot) check(m *discordgo.MessageCreate, s *discordgo.Session) {
